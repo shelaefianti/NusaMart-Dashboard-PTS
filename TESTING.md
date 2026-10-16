@@ -18,3 +18,15 @@
 
 ## 4. Catatan
 Hasil pengujian didasarkan pada pemeriksaan fitur yang dilakukan selama pengembangan. Pengujian tambahan diperlukan untuk memastikan seluruh fitur berjalan dalam berbagai kondisi.
+
+## Pengujian Validasi Harga Rupiah
+
+Pengujian tambahan untuk validasi input harga:
+
+- Input angka bulat positif: diterima jika rentang harga valid.
+- Input notasi seperti `1e3`: ditolak.
+- Input negatif seperti `-100`: ditolak.
+- Harga maksimum lebih kecil daripada minimum: ditolak.
+- Kedua input harga kosong: semua produk ditampilkan kembali.
+
+Catatan: hasil setiap skenario dicatat setelah pengujian langsung di browser.
