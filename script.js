@@ -198,26 +198,47 @@ function renderProducts() {
 priceForm.addEventListener("submit", event => {
   event.preventDefault();
 
-  const minText = minPriceInput.value.trim();
-  const maxText = maxPriceInput.value.trim();
-  // Input pengguna memakai rupiah, sedangkan nilai API perlu dibandingkan dalam skala asalnya.
-  const minRupiah = minText === "" ? null : Number(minText);
-  const maxRupiah = maxText === "" ? null : Number(maxText);
-  const min = minRupiah === null ? null : minRupiah / IDR_PER_USD;
-  const max = maxRupiah === null ? null : maxRupiah / IDR_PER_USD;
+const minText = minPriceInput.value.trim();
+const maxText = maxPriceInput.value.trim();
 
-  minPriceInput.setAttribute("aria-invalid", "false");
-  maxPriceInput.setAttribute("aria-invalid", "false");
-  priceMessage.className = "form-message";
+// Memeriksa agar input hanya berisi angka bulat.
+const minValid = minText === "" || /^\d+$/.test(minText);
+const maxValid = maxText === "" || /^\d+$/.test(maxText);
 
-  if ((minRupiah !== null && (!Number.isFinite(minRupiah) || minRupiah < 0)) ||
-      (maxRupiah !== null && (!Number.isFinite(maxRupiah) || maxRupiah < 0))) {
-    priceMessage.textContent = "Harga harus berupa angka rupiah nol atau lebih.";
-    priceMessage.classList.add("error");
-    if (minRupiah !== null && (!Number.isFinite(minRupiah) || minRupiah < 0)) minPriceInput.setAttribute("aria-invalid", "true");
-    if (maxRupiah !== null && (!Number.isFinite(maxRupiah) || maxRupiah < 0)) maxPriceInput.setAttribute("aria-invalid", "true");
-    return;
+const minRupiah = minText === "" || !minValid
+  ? null
+  : Number(minText);
+
+const maxRupiah = maxText === "" || !maxValid
+  ? null
+  : Number(maxText);
+
+const min = minRupiah === null ? null : minRupiah / IDR_PER_USD;
+const max = maxRupiah === null ? null : maxRupiah / IDR_PER_USD;
+
+minPriceInput.setAttribute("aria-invalid", "false");
+maxPriceInput.setAttribute("aria-invalid", "false");
+priceMessage.className = "form-message";
+
+if (!minValid || !maxValid ||
+    (minRupiah !== null && !Number.isSafeInteger(minRupiah)) ||
+    (maxRupiah !== null && !Number.isSafeInteger(maxRupiah))) {
+  priceMessage.textContent =
+    "Masukkan harga berupa angka bulat Rupiah nol atau lebih.";
+  priceMessage.classList.add("error");
+
+  if (!minValid ||
+      (minRupiah !== null && !Number.isSafeInteger(minRupiah))) {
+    minPriceInput.setAttribute("aria-invalid", "true");
   }
+
+  if (!maxValid ||
+      (maxRupiah !== null && !Number.isSafeInteger(maxRupiah))) {
+    maxPriceInput.setAttribute("aria-invalid", "true");
+  }
+
+  return;
+}
 
   if (minRupiah !== null && maxRupiah !== null && maxRupiah < minRupiah) {
     priceMessage.textContent = "Harga maksimum harus sama dengan atau lebih besar dari harga minimum.";
