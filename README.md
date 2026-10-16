@@ -103,3 +103,17 @@ Durasi 6–10 menit. Awali dengan menampilkan wajah dan menyebutkan nama, NIM, d
 
 ## AI Usage Log
 Lihat `AI_USAGE_LOG.md`. Perbarui catatan berdasarkan bantuan yang benar-benar digunakan, verifikasi, dan modifikasi yang kamu lakukan.
+
+## Menjalankan dan Menguji Aplikasi
+
+1. Unduh atau clone repositori proyek.
+2. Buka folder proyek di Visual Studio Code.
+3. Jalankan `index.html` melalui browser atau ekstensi Live Server.
+4. Pastikan koneksi internet tersedia agar produk dapat diambil dari DummyJSON API.
+5. Uji pencarian, pengurutan, filter harga, validasi input, dan pergantian tema.
+6. Uji tampilan pada ukuran desktop dan mobile.
+
+## Catatan Harga
+
+Harga ditampilkan dalam Rupiah menggunakan estimasi konversi tetap sebesar Rp16.500 per USD. Nilai ini hanya untuk kebutuhan tampilan aplikasi dan bukan kurs real-time maupun harga resmi produk di Indonesia.
+
