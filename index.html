@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NusaMart Dashboard — dashboard interaktif untuk menjelajahi data produk.">
+  <title>NusaMart Dashboard | PTS Pemrograman Web</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="NusaMart Dashboard, halaman utama">
+      <span class="brand-mark" aria-hidden="true">N</span>
+      <span>NusaMart<span class="brand-light"> Dashboard</span></span>
+    </a>
+    <div class="top-actions">
+      <span class="student-label">PTS Pemrograman Web</span>
+      <button id="themeToggle" class="theme-toggle" type="button" aria-label="Ganti tema tampilan">
+        <span id="themeIcon" aria-hidden="true">☾</span><span id="themeText">Mode gelap</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">PRODUCT OVERVIEW</p>
+        <h1>Temukan produk yang<br class="desktop-break"> tepat untukmu.</h1>
+        <p class="hero-copy">Jelajahi katalog produk, cari berdasarkan nama, dan urutkan data sesuai kebutuhan.</p>
+        <p class="student-info">Dibuat oleh: <strong>[Nama Kamu]</strong> · NIM: <strong>[NIM Kamu]</strong></p>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="art-circle"></div><div class="art-card art-card-one">✦</div><div class="art-card art-card-two">NUSA<br><strong>MART</strong></div>
+      </div>
+    </section>
+
+    <section class="stats-grid" aria-label="Statistik produk">
+      <article class="stat-card">
+        <div class="stat-top"><span>Total produk</span><span class="stat-icon">▦</span></div>
+        <p class="stat-value" id="totalProducts">—</p><p class="stat-note">Produk dari REST API</p>
+      </article>
+      <article class="stat-card">
+        <div class="stat-top"><span>Rata-rata harga</span><span class="stat-icon">↗</span></div>
+        <p class="stat-value" id="averagePrice">—</p><p class="stat-note">Dihitung dari seluruh data</p>
+      </article>
+      <article class="stat-card">
+        <div class="stat-top"><span>Produk termahal</span><span class="stat-icon">◇</span></div>
+        <p class="stat-value" id="highestPrice">—</p><p class="stat-note stat-detail" id="highestName">Menunggu data…</p>
+      </article>
+      <article class="stat-card">
+        <div class="stat-top"><span>Total kategori</span><span class="stat-icon">⌘</span></div>
+        <p class="stat-value" id="totalCategories">—</p><p class="stat-note">Kategori unik dalam katalog</p>
+      </article>
+    </section>
+
+    <section class="catalog-section" aria-labelledby="catalogTitle">
+      <div class="section-heading">
+        <div><p class="eyebrow">KATALOG</p><h2 id="catalogTitle">Jelajahi produk</h2></div>
+        <p class="result-count" id="resultCount" aria-live="polite">Memuat produk…</p>
+      </div>
+
+      <div class="toolbar">
+        <label class="search-box" for="searchInput"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="Cari nama atau kategori produk…" autocomplete="off"><kbd>⌘ K</kbd></label>
+        <label class="sort-control" for="sortSelect"><span>Urutkan</span>
+          <select id="sortSelect">
+            <option value="featured">Pilihan awal</option>
+            <option value="name-asc">Nama: A–Z</option>
+            <option value="price-asc">Harga: termurah</option>
+            <option value="price-desc">Harga: termahal</option>
+            <option value="rating-desc">Rating tertinggi</option>
+          </select>
+        </label>
+      </div>
+
+      <form id="priceForm" class="price-form" novalidate>
+        <div class="price-form-heading"><div><h3>Filter rentang harga</h3><p>Masukkan dua batas harga yang saling berkaitan.</p></div><button class="text-button" id="resetPrice" type="button">Reset filter</button></div>
+        <div class="price-fields">
+          <div class="field"><label for="minPrice">Harga minimum (Rupiah)</label><input id="minPrice" name="minPrice" type="number" min="0" step="0.01" placeholder="Contoh: 100000"></div>
+          <div class="field"><label for="maxPrice">Harga maksimum (Rupiah)</label><input id="maxPrice" name="maxPrice" type="number" min="0" step="0.01" placeholder="Contoh: 500000"></div>
+          <button class="apply-button" type="submit">Terapkan filter <span aria-hidden="true">→</span></button>
+        </div>
+        <p class="form-message" id="priceMessage" role="status" aria-live="polite"></p>
+      </form>
+
+      <div id="loadingState" class="state-box"><span class="spinner" aria-hidden="true"></span><p>Sedang mengambil data produk…</p></div>
+      <div id="errorState" class="state-box error-state" hidden><div class="state-symbol">!</div><h3>Data belum bisa dimuat</h3><p id="errorMessage">Periksa koneksi internet, lalu coba lagi.</p><button id="retryButton" class="apply-button" type="button">Coba lagi</button></div>
+      <div id="emptyState" class="state-box" hidden><div class="state-symbol">⌕</div><h3>Produk tidak ditemukan</h3><p>Coba kata kunci atau rentang harga yang berbeda.</p><button id="clearSearch" class="text-button" type="button">Hapus pencarian dan filter</button></div>
+      <div id="productGrid" class="product-grid" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span><strong>NusaMart Dashboard</strong> · Mini Project Front-End</span>
+    <span>[Nama Kamu] · [NIM Kamu] · [Kelas]</span>
+  </footer>
+</body>
+</html>
