@@ -274,6 +274,8 @@ document.querySelector("#resetPrice").addEventListener("click", () => {
 document.querySelector("#clearSearch").addEventListener("click", () => {
   searchInput.value = "";
   priceForm.reset();
+  minPriceInput.setAttribute("aria-invalid", "false");
+  maxPriceInput.setAttribute("aria-invalid", "false");
   appliedMinPrice = null;
   appliedMaxPrice = null;
   priceMessage.textContent = "";
